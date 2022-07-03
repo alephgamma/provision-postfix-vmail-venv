@@ -1,0 +1,23 @@
+- name: remove dirs, uninstall postfix and close smtp - virtual
+  hosts: mail
+  become: true
+  vars:
+    domain: "{{ lookup('env','DOMAIN') }}"
+  tasks:
+    - name: delete folders
+      file:
+        state: absent
+        path: /var/mail/vhosts/{{ domain }}     
+
+    - name: uninstall postfix
+      yum:
+        name: postfix
+        state: absent
+
+    - name: remove smtp
+      firewalld: 
+        zone: public
+        service: smtp
+        permanent: yes
+        immediate: yes
+        state: disabled
