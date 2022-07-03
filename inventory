@@ -1,0 +1,2 @@
+[postfix]
+mail ansible_host=172.93.158.170

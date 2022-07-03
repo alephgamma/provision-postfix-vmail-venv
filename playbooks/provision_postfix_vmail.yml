@@ -1,0 +1,79 @@
+- name: install and configure postfix with virtual mailboxes
+  hosts: mail
+  become: true
+  vars:
+    version: postfix-3.5.8-2.el8.x86_64
+    domain: "{{ lookup('env','DOMAIN') }}"
+    tpath: "/home/centos/provision-postfix-vmail-venv/templates"
+    vpath: "/var/mail/vhosts"
+    owner: luis.f.gonzalez
+    vusers:
+      - "info"
+      - "sales"
+    vdirs:
+      [ "cur", "new", "tmp" ]
+  tasks:
+    - name: install postfix
+      yum:
+        name: "{{ version }}"
+        state: present
+
+    - name: open smtp
+      firewalld: 
+        zone: public
+        service: smtp
+        permanent: yes
+        immediate: yes
+        state: enabled
+
+    - name: create main.cf
+      template: 
+        src: "{{ tpath }}/main.cf.j2"
+        dest: "/etc/postfix/main.cf"
+
+    - name: create vmailbox
+      template: 
+        src: "{{ tpath }}/vmailbox.j2"
+        dest: "/etc/postfix/vmailbox"
+
+    - name: create virtual
+      template: 
+        src: "{{ tpath }}/virtual.j2"
+        dest: "/etc/postfix/virtual"
+
+    - name: create user
+      user: 
+        name: "{{ owner }}"
+
+    - name: create the virtual dir
+      file:
+        state: directory
+        path: "{{ vpath }}/{{ domain }}"
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: create virtual maildir
+      file: 
+        state: directory
+        path: "{{ vpath }}/{{ domain }}/{{ item[0] }}/{{ item[1] }}"
+        owner: "{{ owner }}"
+        group: "{{ owner }}"
+        mode: '0755'
+      with_nested:
+        - "{{ vusers }}"
+        - "{{ vdirs }}"
+
+    - name: postmap /etc/postfix/vmailbox
+      shell:
+        cmd: postmap /etc/postfix/vmailbox
+
+    - name: postmap /etc/postfix/virtual
+      shell:
+        cmd: postmap /etc/postfix/virtual
+
+#    - name: start and enable postfix
+#      systemd: 
+#        name: postfix
+#        state: started
+#        enabled: yes
