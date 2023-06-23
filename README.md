@@ -6,3 +6,7 @@ This is an ansible environment to provision an email server with virtual mailbox
 
 * ansible control-node
 * target-node
+* DNS domain
+  - Domain record
+  - Mail server record
+  - MX record
