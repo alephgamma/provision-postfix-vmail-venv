@@ -5,3 +5,4 @@ This is an ansible environment to provision an email server with virtual mailbox
 ## Pre-requisites
 
 * ansible control-node
+* target-node
