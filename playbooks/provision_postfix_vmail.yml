@@ -28,17 +28,17 @@
 
     - name: create main.cf
       template: 
-        src: "{{ tpath }}/main.cf.j2"
+        src: "main.cf.j2"
         dest: "/etc/postfix/main.cf"
 
     - name: create vmailbox
       template: 
-        src: "{{ tpath }}/vmailbox.j2"
+        src: "vmailbox.j2"
         dest: "/etc/postfix/vmailbox"
 
     - name: create virtual
       template: 
-        src: "{{ tpath }}/virtual.j2"
+        src: "virtual.j2"
         dest: "/etc/postfix/virtual"
 
     - name: create user
