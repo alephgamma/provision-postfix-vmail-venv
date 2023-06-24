@@ -1,0 +1,24 @@
+---
+- name: configure mutt for user
+  hosts: mail
+  become: true
+  vars:
+    user: "luis.f.gonzalez"
+
+  tasks:
+    - name: install mutt
+      yum:
+        name: mutt
+        state: present
+    
+    - name: create .muttrc
+      template: 
+        src: muttrc.j2
+        dest: "/home/{{ user }}/.muttrc"
+
+    - name: fix .muttrc permissions
+      file:
+        path: "/home/{{ user }}/.muttrc"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0664'
