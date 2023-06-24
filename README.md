@@ -7,7 +7,8 @@ This is an ansible environment to provision an email server with virtual mailbox
 * ansible control-node
 * target-node
 * DNS domain
-  - Domain record
-  - Mail server record
+  - Domain record: {{ fqdn }}
+  - Mail server record: mail.{{ fqdn }}
   - MX record
-
+* PTR record
+* certificate is ready
