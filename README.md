@@ -9,7 +9,7 @@ This is an ansible environment to provision an email server with virtual mailbox
 * DNS domain
   - Domain record: **{{ your-domain.com }}**
   - Mail server record: **mail.{{ your-domain.com }}**
-  - MX record:  **mail.{{ your-domain.com }}**
+  - MX record:  **10 mail.{{ your-domain.com }}**
 * PTR record
 * certificate is ready
 
