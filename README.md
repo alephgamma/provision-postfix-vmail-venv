@@ -14,4 +14,5 @@ This is an ansible environment to provision an email server with virtual mailbox
 * certificate is ready
 
 ## The Big Picture
+For those of us that learn better by seeing, the image below is for visualization. 
 ![alt text](https://github.com/alephgamma/provision-postfix-vmail-venv/blob/master/postfix-vmail.png?raw=true)
