@@ -12,3 +12,5 @@ This is an ansible environment to provision an email server with virtual mailbox
   - MX record
 * PTR record
 * certificate is ready
+
+## The Big Picture
