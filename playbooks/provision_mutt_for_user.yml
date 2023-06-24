@@ -4,6 +4,12 @@
   become: true
   vars:
     user: "luis.f.gonzalez"
+    domain: "{{ lookup('env','DOMAIN') }}"
+    vpath: "/var/mail/vhosts"
+    vusers:
+      - "info"
+      - "sales"
+    vdirs:
 
   tasks:
     - name: install mutt
