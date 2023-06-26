@@ -20,3 +20,7 @@ For those of us that learn better by seeing, the image below is for visualizatio
 ## The playbooks
 
 ## The tamplates
+
+## Reciept verification at the target-node
+
+## Transmission verification from the target-node
