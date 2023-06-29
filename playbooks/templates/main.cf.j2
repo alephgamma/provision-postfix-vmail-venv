@@ -34,16 +34,16 @@ myorigin = $mydomain
 
 home_mailbox = Maildir/
 
-smtpd_tls_cert_file = /etc/letsencrypt/live/{{ domain }}/cert.pem
-smtpd_tls_key_file = /etc/letsencrypt/live/{{ domain }}/privkey.pem
-smtpd_tls_CAfile = /etc/letsencrypt/live/{{ domain }}/chain.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/$mydomain/cert.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/$mydomain/privkey.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/$mydomain/chain.pem
 smtpd_tls_security_level = may
 
 smtp_use_tls = yes
 smtp_tls_security_level = may
 smtp_tls_note_starttls_offer = yes
 smtp_tls_CAfile = /etc/ssl/certs/ca-bundle.crt
-smtp_tls_CApath = /etc/letsencrypt/live/{{ domain }}
+smtp_tls_CApath = /etc/letsencrypt/live/$mydomain
 
 mydestination = localhost.$mydomain, localhost
 virtual_mailbox_domains = $mydomain
