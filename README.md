@@ -21,10 +21,10 @@ For those of us that learn better by seeing, the image below is for visualizatio
 
 ## The templates
 
-## Local submission: Reciept verification from local user to local user
+## Local submission: Receipt verification from local user to local user
 
 ## Local submission: Transmission (sent) verification from local user to local user
 
-## Network submission: Reciept verification at the target-node
+## Network submission: Receipt verification at the target-node
 
 ## Network submission: Transmission (sent) verification from the target-node
