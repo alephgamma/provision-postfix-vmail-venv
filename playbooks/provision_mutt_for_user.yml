@@ -3,7 +3,7 @@
   hosts: mail
   become: true
   vars:
-    user: "luis.f.gonzalez"
+    user: "centos"
     domain: "{{ lookup('env','DOMAIN') }}"
     vpath: "/var/mail/vhosts"
     vusers:
