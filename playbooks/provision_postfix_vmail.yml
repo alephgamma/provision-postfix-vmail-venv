@@ -5,9 +5,12 @@
     version: postfix
 #    version: postfix-3.5.8-2.el8.x86_64
     domain: "{{ lookup('env','DOMAIN') }}"
-    tpath: "/home/centos/provision-postfix-vmail-venv/templates"
+#    tpath: "/home/centos/provision-postfix-vmail-venv/templates"
     vpath: "/var/mail/vhosts"
-    owner: luis.f.gonzalez
+#    owner: luis.f.gonzalez
+    owner: 
+      username: centos
+      uid: 1010
     vusers:
       - "info"
       - "sales"
@@ -44,7 +47,9 @@
 
     - name: create user
       user: 
-        name: "{{ owner }}"
+#        name: "{{ owner }}"
+        name: "{{ owner.username }}"
+        uid: "{{ owner.uid }}"
 
     - name: create the virtual dir
       file:
@@ -58,8 +63,10 @@
       file: 
         state: directory
         path: "{{ vpath }}/{{ domain }}/{{ item[0] }}/{{ item[1] }}"
-        owner: "{{ owner }}"
-        group: "{{ owner }}"
+#        owner: "{{ owner }}"
+#        group: "{{ owner }}"
+        owner: "{{ owner.username }}"
+        group: "{{ owner.username }}"
         mode: '0755'
       with_nested:
         - "{{ vusers }}"
