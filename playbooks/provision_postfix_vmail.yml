@@ -3,11 +3,8 @@
   become: true
   vars:
     version: postfix
-#    version: postfix-3.5.8-2.el8.x86_64
     domain: "{{ lookup('env','DOMAIN') }}"
-#    tpath: "/home/centos/provision-postfix-vmail-venv/templates"
     vpath: "/var/mail/vhosts"
-#    owner: luis.f.gonzalez
     owner: 
       username: centos
       uid: 1010
@@ -47,7 +44,6 @@
 
     - name: create user
       user: 
-#        name: "{{ owner }}"
         name: "{{ owner.username }}"
         uid: "{{ owner.uid }}"
 
@@ -63,8 +59,6 @@
       file: 
         state: directory
         path: "{{ vpath }}/{{ domain }}/{{ item[0] }}/{{ item[1] }}"
-#        owner: "{{ owner }}"
-#        group: "{{ owner }}"
         owner: "{{ owner.username }}"
         group: "{{ owner.username }}"
         mode: '0755'
