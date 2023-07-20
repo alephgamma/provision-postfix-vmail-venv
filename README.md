@@ -9,12 +9,15 @@ This is an ansible environment to provision an email server with virtual mailbox
     - DOMAIN
     - IP
 * target-node
+  - Local user(s)
+    - centos
 * DNS domain
   - Domain record: `{{ your-domain.com }}`
   - Mail server record: `mail.{{ your-domain.com }}`
   - MX record:  `10 mail.{{ your-domain.com }}`
 * PTR record
 * HTTPS Certificate is ready
+* External email user
 
 ## The Big Picture
 For those of us that learn better by seeing, the image below is for visualization. 
