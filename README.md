@@ -5,6 +5,9 @@ This is an ansible environment to provision an email server with virtual mailbox
 ## Pre-requisites
 
 * ansible control-node
+  - mkvirtualenv/postactivate contains
+    - DOMAIN
+    - IP
 * target-node
 * DNS domain
   - Domain record: `{{ your-domain.com }}`
