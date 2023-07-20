@@ -4,7 +4,8 @@
   vars:
     version: postfix
     domain: "{{ lookup('env','DOMAIN') }}"
-    vpath: "/var/mail/vhosts"
+    #vpath: "/var/mail/vhosts"
+    vpath: /var/spool/vmail
     owner: 
       username: centos
       uid: 1010

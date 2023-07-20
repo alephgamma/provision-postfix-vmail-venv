@@ -5,7 +5,8 @@
   vars:
     user: "centos"
     domain: "{{ lookup('env','DOMAIN') }}"
-    vpath: "/var/mail/vhosts"
+    #vpath: "/var/mail/vhosts"
+    vpath: /var/spool/vmail
     vusers:
       - "info"
       - "sales"

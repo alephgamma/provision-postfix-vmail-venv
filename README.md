@@ -5,7 +5,7 @@ This is an ansible environment to provision an email server with virtual mailbox
 ## Pre-requisites
 
 * ansible control-node
-  - mkvirtualenv/postactivate contains
+  - mkvirtualenv/postactivate contains environment variables:
     - DOMAIN
     - IP
 * target-node
@@ -14,7 +14,7 @@ This is an ansible environment to provision an email server with virtual mailbox
   - Mail server record: `mail.{{ your-domain.com }}`
   - MX record:  `10 mail.{{ your-domain.com }}`
 * PTR record
-* certificate is ready
+* HTTPS Certificate is ready
 
 ## The Big Picture
 For those of us that learn better by seeing, the image below is for visualization. 
@@ -24,10 +24,12 @@ For those of us that learn better by seeing, the image below is for visualizatio
 
 ## The templates
 
-## Local submission: Receipt verification from local user to local user
+## Use-Cases
 
-## Local submission: Transmission (sent) verification from local user to local user
+### Local submission: Receipt verification from local user to local user
 
-## Network submission: Receipt verification at the target-node
+### Local submission: Transmission (sent) verification from local user to local user
 
-## Network submission: Transmission (sent) verification from the target-node
+### Network submission: Receipt verification at the target-node
+
+### Network submission: Transmission (sent) verification from the target-node
