@@ -46,14 +46,10 @@ For those of us that learn better by seeing, the image below is for visualizatio
 
 ## Use-Cases
 
-### Local submission: Receipt verification from local user to local user
----
+### <u> Local submission: Receipt verification from local user to local user </u>
 
 ### Local submission: Transmission (sent) verification from local user to local user
----
 
 ### Network submission: Receipt verification at the target-node
----
 
 ### Network submission: Transmission (sent) verification from the target-node
----
