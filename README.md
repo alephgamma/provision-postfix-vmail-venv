@@ -24,8 +24,8 @@ For those of us that learn better by seeing, the image below is for visualizatio
 ![alt text](https://github.com/alephgamma/provision-postfix-vmail-venv/blob/master/postfix-vmail.png?raw=true)
 
 ## The playbooks
-
-`- name: install and configure postfix with virtual mailboxes
+```
+  - name: install and configure postfix with virtual mailboxes
   hosts: mail
   become: true
   vars:
@@ -40,16 +40,20 @@ For those of us that learn better by seeing, the image below is for visualizatio
       - "info"
       - "sales"
     vdirs:
-      [ "cur", "new", "tmp" ]`
-
+      [ "cur", "new", "tmp" ]
+```
 ## The templates
 
 ## Use-Cases
 
-### <u> Local submission: Receipt verification from local user to local user </u>
+### Local submission: Receipt verification from local user to local user </u>
+---
 
 ### Local submission: Transmission (sent) verification from local user to local user
+---
 
 ### Network submission: Receipt verification at the target-node
+---
 
 ### Network submission: Transmission (sent) verification from the target-node
+---
