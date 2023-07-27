@@ -3,7 +3,9 @@
   hosts: mail
   become: true
   vars:
-    user: "centos"
+    owner:
+      username: centos
+      uid: 1010
     domain: "{{ lookup('env','DOMAIN') }}"
     #vpath: "/var/mail/vhosts"
     vpath: /var/spool/vmail
@@ -21,11 +23,11 @@
     - name: create .muttrc
       template: 
         src: muttrc.j2
-        dest: "/home/{{ user }}/.muttrc"
+        dest: "/home/{{ owner.username }}/.muttrc"
 
     - name: fix .muttrc permissions
       file:
-        path: "/home/{{ user }}/.muttrc"
-        owner: "{{ user }}"
-        group: "{{ user }}"
+        path: "/home/{{ owner.user }}/.muttrc"
+        owner: "{{ owner.username }}"
+        group: "{{ owner.username }}"
         mode: '0664'
