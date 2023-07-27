@@ -1,3 +1,1 @@
-{% for user in vusers %}
-{{ owner.username }}@{{ domain }} {{ user }}
-{% endfor %}
+{{ owner.username }}@{{ domain }} {{ vusers|join(', ') }}
