@@ -1,0 +1,41 @@
+- name: remove dirs, uninstall postfix and close smtp - virtual
+  hosts: mail
+  become: true
+  vars:
+    domain: "{{ lookup('env','DOMAIN') }}"
+    # vpath: "/var/mail/vhosts"
+    vpath: /var/spool/vmail
+
+  tasks:
+    - name: delete spool files and folders
+      file:
+        state: absent
+        path: "{{ vpath }}/{{ domain }}"
+
+    - name: uninstall postfix
+      yum:
+        name: postfix
+        state: absent
+
+    - name: delete postfix files and folders
+      file:
+        state: absent
+        path: /etc/postfix
+
+    - name: uninstall opendkim
+      yum:
+        name: opendkim
+        state: absent
+
+    - name: delete opendkim files and folders
+      file:
+        state: absent
+        path: /etc/opendkim
+
+    - name: remove smtp from firewall
+      firewalld: 
+        zone: public
+        service: smtp
+        permanent: yes
+        immediate: yes
+        state: disabled
