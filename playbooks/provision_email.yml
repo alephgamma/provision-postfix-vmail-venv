@@ -116,7 +116,7 @@
         state: directory
 
 #===============================================================================================================
-# This will change keys and must match the DNS record if the txt file does not exist before running the playbook  
+# If the date.txt file does not exist before running the playbook, the DNS record needs to be updated to match
 #===============================================================================================================
 
     - name: create the opendkim keys

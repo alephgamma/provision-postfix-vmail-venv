@@ -25,7 +25,7 @@ For those of us that learn better by seeing, the image below is for visualizatio
 
 ## The playbooks
 
-provision_postfix_vmail.yml
+### provision_postfix_vmail.yml
 ```
 - name: install and configure postfix with virtual mailboxes
   hosts: mail
@@ -35,8 +35,8 @@ provision_postfix_vmail.yml
     domain: "{{ lookup('env','DOMAIN') }}"
     # vpath: "/var/mail/vhosts"
     vpath: /var/spool/vmail
-    owner:
-      username: centos
+    user:
+      name: centos
       uid: 1010
     vusers:
       - "info"
