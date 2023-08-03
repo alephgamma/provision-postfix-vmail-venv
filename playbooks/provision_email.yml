@@ -115,9 +115,9 @@
         path: /etc/opendkim/keys/{{ domain }}
         state: directory
 
-#====================================================================================
-# This will change and must match the DNS record if the txt file does not exist prior  
-#====================================================================================
+#===============================================================================================================
+# This will change keys and must match the DNS record if the txt file does not exist before running the playbook  
+#===============================================================================================================
 
     - name: create the opendkim keys
       shell: opendkim-genkey -b 2048 -d {{ domain }} -D /etc/opendkim/keys/{{ domain }} -s {{ date }} -v
@@ -163,15 +163,15 @@
         create_home: no
         shell: /bin/false
 
-    - name: add line
+    - name: add eye-candy line to main.cf
       shell:
         cmd: echo -e '\n#==========================\n' >> /etc/postfix/main.cf
 
-    - name: update main.cf
+    - name: update main.cf spf 1
       shell:
         cmd: postconf -e policyd-spf_time_limit=3600
 
-    - name: update main.cf
+    - name: update main.cf spf 2
       shell:
         cmd: postconf -e smtpd_recipient_restrictions='check_policy_service unix:private/policyd-spf'
 
@@ -188,7 +188,7 @@
         src: opendmarc.conf.j2
         dest: /etc/opendmarc.conf
 
-    - name: configure main.cf
+    - name: configure main.cf with dmarc milter setting
       lineinfile:
         path: /etc/postfix/main.cf
         line: '\1,inet:127.0.0.1:8893'
