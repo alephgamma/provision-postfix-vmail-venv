@@ -1,4 +1,4 @@
-- name: install and configure postfix with virtual mailboxes
+- name: install and configure postfix, opendkim and spf with virtual mailboxes
   hosts: mail
   become: true
   vars:
@@ -7,6 +7,11 @@
     packages:
       - opendkim
       - opendkim-tools
+      - pypolicyd-spf
+
+    #date: "{{ ansible_date_time.year}}{{ ansible_date_time.month }}{{ ansible_date_time.day }}"
+    #date: 20230728
+    date: default
 
     domain: "{{ lookup('env','DOMAIN') }}"
     #vpath: "/var/mail/vhosts"
@@ -81,15 +86,9 @@
       shell:
         cmd: postmap /etc/postfix/virtual
 
-    - name: start and enable postfix
-      systemd: 
-        name: postfix
-        state: started
-        enabled: yes
-
 #==========================================================
 
-    - name: install opendkim packages
+    - name: install opendkim and policyd-spf packages
       package:
         name: "{{ packages }}"
 
@@ -152,11 +151,58 @@
 
 #=================================
 
+    - name: add policyd-spf group
+      group:
+        name: policyd-spf
+
+    - name: add policyd-spf user
+      user:
+        name: policyd-spf
+        group: policyd-spf
+        create_home: no
+        shell: /bin/false
+
+    - name: update main.cf
+      shell:
+        cmd: postconf -e policyd-spf_time_limit=3600
+
+    - name: update main.cf
+      shell:
+        cmd: postconf -e smtpd_recipient_restrictions='check_policy_service unix:private/policyd-spf'
+
+    # postconf -M ... ?
+    - name: update master.cf
+      lineinfile:
+        path: /etc/postfix/master.cf
+        line: 'policyd-spf  unix  -    n       n       -       0       spawn user=policyd-spf argv=/usr/libexec/postfix/policyd-spf'
+
+#=================================
+
+    - name: configure opendmarc file
+      template:
+        src: opendmarc.conf.j2
+        dest: /etc/opendmarc.conf
+
+    - name: configure main.cf
+      lineinfile:
+        path: /etc/postfix/main.cf
+        line: '\1,inet:127.0.0.1:8893'
+        regexp: '(smtpd_milters = inet:127.0.0.1:8891)$'
+        backrefs: yes
+
+#=================================
+
     - name: start and enable opendkim
       systemd:
         name: opendkim
         enabled: yes
         state: restarted
+
+    - name: start and enable opendmarc
+      systemd:
+        enabled: yes
+        name: opendmarc
+        state: started
 
     - name: start and enable postfix
       systemd:
