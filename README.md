@@ -1,6 +1,6 @@
 # provision-postfix-vmail-venv
 
-This is an ansible environment to provision an email server with virtual mailboxes.
+This is an ansible environment to provision an email server with virtual mailboxes. Additional improvements add opendkim, spf and opendmarc features.
 
 ## Pre-requisites
 
@@ -47,6 +47,19 @@ provision_postfix_vmail.yml
 ```
 
 ## The templates
+
+### postfix/main.cf.j2
+### postfix/virtual.j2
+### postfix/vmailbox.j2
+
+### opendkim/opendkim.conf.j2
+### opendkim/KeyTable.j2
+### opendkim/SigningTable.j2
+### opendkim/TrustedHosts.j2
+
+### opendmarc/opendmarc.conf.j2
+
+### muttrc.j2
 
 # Use-Cases
 
