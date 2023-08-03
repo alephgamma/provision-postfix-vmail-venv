@@ -8,6 +8,7 @@
       - opendkim
       - opendkim-tools
       - pypolicyd-spf
+      - opendmarc
 
     #date: "{{ ansible_date_time.year}}{{ ansible_date_time.month }}{{ ansible_date_time.day }}"
     #date: 20230728
@@ -88,7 +89,7 @@
 
 #==========================================================
 
-    - name: install opendkim and policyd-spf packages
+    - name: install opendkim, policyd-spf and opendmarc packages
       package:
         name: "{{ packages }}"
 
@@ -113,18 +114,18 @@
       file:
         path: /etc/opendkim/keys/{{ domain }}
         state: directory
+
+#====================================================================================
+# This will change and must match the DNS record if the txt file does not exist prior  
+#====================================================================================
+
     - name: create the opendkim keys
       shell: opendkim-genkey -b 2048 -d {{ domain }} -D /etc/opendkim/keys/{{ domain }} -s {{ date }} -v
       args:
         chdir: "/etc/opendkim/keys/{{ domain }}"
         creates: "{{ date }}.txt"
 
-#############################
-#
-# This is where /etc/postfix/main.cf should be updated and
-# postfix restarted
-#
-#############################
+#=================================
 
     - name: set opendkim 1
       shell:
@@ -161,6 +162,10 @@
         group: policyd-spf
         create_home: no
         shell: /bin/false
+
+    - name: add line
+      shell:
+        cmd: echo -e '\n#==========================\n' >> /etc/postfix/main.cf
 
     - name: update main.cf
       shell:
@@ -200,12 +205,12 @@
 
     - name: start and enable opendmarc
       systemd:
-        enabled: yes
         name: opendmarc
-        state: started
+        enabled: yes
+        state: restarted
 
     - name: start and enable postfix
       systemd:
         name: postfix
-        state: restarted
         enabled: yes
+        state: restarted

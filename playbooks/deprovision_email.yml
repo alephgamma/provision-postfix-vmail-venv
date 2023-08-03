@@ -32,6 +32,26 @@
         state: absent
         path: /etc/opendkim
 
+    - name: uninstall opendmarc
+      yum:
+        name: opendmarc
+        state: absent
+
+    - name: delete opendmarc files and folders
+      file:
+        state: absent
+        path: /etc/opendmarc
+
+    - name: delete policyd-spf group
+      group:
+        name: policy-spf
+        state: absent
+
+    - name: delete policyd-spf user
+      user:
+        name: policyd-spf
+        state: absent
+
     - name: remove smtp from firewall
       firewalld: 
         zone: public
