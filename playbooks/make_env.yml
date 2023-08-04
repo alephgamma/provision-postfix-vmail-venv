@@ -1,0 +1,31 @@
+---
+- name: make .env file
+  hosts: mail
+  become: true
+  vars:
+    domain: "{{ lookup('env','DOMAIN') }}"
+    date: "default"
+
+  tasks:
+    - name: create the make file
+      template:
+        src: make_env.py.j2
+        dest: /usr/local/bin/make_env.py
+
+    - name: fix make_env.py perms
+      file:
+        path: /usr/local/bin/make_env.py
+        owner: centos
+        group: centos
+        mode: '0755'
+
+    - name: run make_env.py
+      shell:
+        cmd: /usr/local/bin/make_env.py
+      register: c
+
+    - name: pull .env to control-node
+      fetch:
+        src: /home/centos/.env
+        dest: /home/centos/.env
+        flat: yes

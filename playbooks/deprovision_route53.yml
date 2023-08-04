@@ -1,0 +1,18 @@
+---
+- name: update aws
+  hosts: localhost
+  become: true
+  vars:
+    domain: "{{ lookup('env','DOMAIN') }}"
+    aaki: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+    asak: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+  tasks: 
+    - name: add an txt-record
+      route53:
+        aws_access_key: "{{ aaki }}"
+        aws_secret_key: "{{ asak }}"
+        state: absent
+        zone: "{{ domain }}"
+        record: "www.{{ domain }}"
+        type: A
+        value: "1.2.3.4"
