@@ -5,6 +5,7 @@
   vars:
     domain: "{{ lookup('env','DOMAIN') }}"
     user: "{{ lookup('env','USER') }}"
+    mail_user: centos
     date: "default"
 
   tasks:
@@ -16,17 +17,16 @@
     - name: fix make_env.py perms
       file:
         path: /usr/local/bin/make_env.py
-        owner: "{{ user }}"
-        group: "{{ user }}"
+        owner: "{{ mail_user }}"
+        group: "{{ mail_user }}"
         mode: '0755'
 
     - name: run make_env.py
       shell:
         cmd: /usr/local/bin/make_env.py
-      register: c
 
     - name: pull .env to control-node
       fetch:
-        src: /home/{{ user }}/.env
+        src: /home/{{ mail_user }}/.env
         dest: /home/{{ user }}/.env
         flat: yes

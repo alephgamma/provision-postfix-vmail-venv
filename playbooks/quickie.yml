@@ -1,0 +1,29 @@
+---
+- name: ec2 creation
+  hosts: localhost
+  connection: local
+  vars:
+    aak: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+    ask: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+    n: ansible-c8
+    r: us-east-2
+    k: gonzalezlz-osm
+    i: ami-013f9ee48907190f5
+    sg: "Security-Group {{ n }}"
+    l: [ proxy, alpha, beta ]
+    t: test
+  tasks:
+    - name: provision ec2 image
+      ec2_instance:
+        aws_access_key: "{{ aak }}"
+        aws_secret_key: "{{ ask }}"
+        name: "{{ n }}-{{ item }}"
+        key_name: "{{ k }}"
+        image_id: "{{ i }}"
+        region: "{{ r }}"
+        network:
+          assign_public_ip: true
+        instance_type: t2.nano
+        tags:
+          env: "{{ t }}"
+      loop: "{{ l }}"
