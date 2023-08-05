@@ -5,6 +5,7 @@
   vars:
     domain: "{{ lookup('env','DOMAIN') }}"
     user: "{{ lookup('env','USER') }}"
+    venv: "{{ lookup('env','VENV') }}"
     mail_user: centos
     date: "default"
 
@@ -28,5 +29,5 @@
     - name: pull .env to control-node
       fetch:
         src: /home/{{ mail_user }}/.env
-        dest: /home/{{ user }}/.env
+        dest: /home/{{ user }}/{{ venv }}/.env
         flat: yes
