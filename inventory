@@ -1,5 +1,5 @@
 [postfix]
 mail ansible_host="{{ lookup('env','IP') }}"
 
-[localhost]
-127.0.0.1 ansible_python_interpreter=/home/centos/.virtualenvs/provision-postfix-vmail-venv/bin/python ansible_user=centos
+[control_node]
+localhost ansible_user=ec2-user ansible_connection=local
