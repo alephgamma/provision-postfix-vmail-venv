@@ -61,6 +61,25 @@ For those of us that learn better by seeing, the image below is for visualizatio
 
 ### muttrc.j2
 
+### make_env.py.j2
+```
+#!/usr/bin/python3
+
+import re,os
+
+d  = '/etc/opendkim/keys/{{ domain }}/{{ date }}.txt'
+ef = '/home/centos/.env'
+
+f=[line.replace('\n',' ') for line in open(d)]
+
+t = re.findall('"([^"]*)"',' '.join(f))
+
+with open(ef,'w') as file:
+    file.write('D1='+t[0]+'\n')
+    file.write('D2='+t[1]+'\n')
+    file.write('D3='+t[2]+'\n')
+```
+
 # Use-Cases
 
 ## Local submission: Receipt verification from local user to local user 

@@ -4,25 +4,18 @@
   become: true
   vars:
     domain: "{{ lookup('env','DOMAIN') }}"
+    ip: "{{ lookup('env','IP') }}"
     aaki: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
     asak: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
-  tasks: 
-    - name: add an a-record
-      route53:
-        aws_access_key: "{{ aaki }}"
-        aws_secret_key: "{{ asak }}"
-        state: present
-        zone: "{{ domain }}"
-        record: "www.{{ domain }}"
-        type: A
-        value: "1.2.3.4"
 
-    - name: add an txt-record
+  tasks: 
+    - name: add an spf txt-record
       route53:
         aws_access_key: "{{ aaki }}"
         aws_secret_key: "{{ asak }}"
         state: present
         zone: "{{ domain }}"
-        record: "default.{{ domain }}"
+        record: "{{ domain }}"
         type: TXT
-        value: '"simple"'
+        overwrite: true
+        value: '"v=spf1 ip4:{{ ip }} -all"'
