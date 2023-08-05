@@ -68,7 +68,7 @@ For those of us that learn better by seeing, the image below is for visualizatio
 import re,os
 
 d  = '/etc/opendkim/keys/{{ domain }}/{{ date }}.txt'
-ef = '/home/centos/.env'
+ef = '/home/{{ mail_user }}/.env'
 
 f=[line.replace('\n',' ') for line in open(d)]
 
