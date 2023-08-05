@@ -4,10 +4,11 @@
   become: true
   vars:
     domain: "{{ lookup('env','DOMAIN') }}"
+    user: "{{ lookup('env','USER') }}"
     date: "default"
 
   tasks:
-    - name: create the make file
+    - name: create the make_env.py file
       template:
         src: make_env.py.j2
         dest: /usr/local/bin/make_env.py
@@ -15,8 +16,8 @@
     - name: fix make_env.py perms
       file:
         path: /usr/local/bin/make_env.py
-        owner: centos
-        group: centos
+        owner: "{{ user }}"
+        group: "{{ user }}"
         mode: '0755'
 
     - name: run make_env.py
@@ -26,6 +27,6 @@
 
     - name: pull .env to control-node
       fetch:
-        src: /home/centos/.env
-        dest: /home/centos/.env
+        src: /home/{{ user }}/.env
+        dest: /home/{{ user }}/.env
         flat: yes
