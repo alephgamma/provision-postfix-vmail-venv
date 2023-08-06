@@ -26,16 +26,16 @@ For those of us that learn better by seeing, the image below is for visualizatio
 
 * Make the virtualenv on the control-node
   - mkvirtualenv **YOUR-PROJECT**
-  - postactivate contains environment variables:
+  - postactivate exports the environment variables:
     - DOMAIN
     - IP
-    - VENV: the name
+    - VENV: The name of **YOUR-PROJECT**
     - ANSIBLE_CONFIG
     - AWS_ACCESS_KEY_ID
     - AWS_SECRET_ACCESS_KEY
-    - MAIL_USER
+    - MAIL_USER: The user on the target-node
   - postactivate runs:
-    `cd /home/ec2-user/provision-postfix-vmail-venv`
+    - `cd /home/ec2-user/provision-postfix-vmail-venv`
 
 ## 3. The playbooks
 
@@ -59,6 +59,9 @@ For those of us that learn better by seeing, the image below is for visualizatio
       [ "cur", "new", "tmp" ]
   ...
 ```
+### make_env.yml
+### provision_mutt_for_user.yml
+### provision_route53.yml
 
 ## 4. The templates
 

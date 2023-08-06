@@ -1,22 +1,4 @@
 ---
-- name: update aws
-  hosts: localhost
-  become: true
-  vars:
-    aaki: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
-    asak: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
-  tasks: 
-    - name: add an txt-record
-      route53:
-        aws_access_key: "{{ aaki }}"
-        aws_secret_key: "{{ asak }}"
-        state: absent
-        zone: "{{ domain }}"
-        record: "20230728._domainkey.redspacemonkey.com"
-        type: TXT
-        value: simple
-
----
 - name: install and configure postfix, opendkim and spf with virtual mailboxes
   hosts: mail
   become: true
@@ -49,18 +31,6 @@
       [ "cur", "new", "tmp" ]
 
   tasks:
-
-    - name: add an txt-record
-      route53:
-        aws_access_key: "{{ aaki }}"
-        aws_secret_key: "{{ asak }}"
-        state: absent
-        zone: "{{ domain }}"
-        record: "20230728._domainkey.redspacemonkey.com"
-        type: TXT
-        value: simple
-      delegate_to: localhost
-        
     - name: install postfix
       yum:
         name: "{{ version }}"
