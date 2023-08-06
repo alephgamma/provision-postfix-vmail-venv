@@ -1,15 +1,15 @@
 # provision-postfix-vmail-venv
 
-This is an ansible environment to provision an email server with virtual mailboxes. Additional improvements add opendkim, spf and opendmarc features.
+This is an ansible environment to provision an email server with virtual mailboxes. Additional improvements add opendkim, spf and opendmarc features with the respective DNS records.
 
 ## 0. Pre-requisites
 
 * control-node
   - Local user
-    - ec2-user with key-pair
+    - `ec2-user` with key-pair
 * target-node
   - Local user(s)
-    - centos
+    - `centos`
 * DNS domain
   - Domain record: `{{ your-domain.com }}`
   - Mail server record: `mail.{{ your-domain.com }}`
@@ -25,7 +25,7 @@ For those of us that learn better by seeing, the image below is for visualizatio
 ## 2. Create the virtual environment
 
 * mkvirtualenv on the control-node
-  - mkvirtualenv
+  - mkvirtualenv *YOUR-PROJECT*
   - postactivate contains environment variables:
     - DOMAIN
     - IP
