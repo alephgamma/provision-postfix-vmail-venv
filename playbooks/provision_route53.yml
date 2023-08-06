@@ -4,25 +4,54 @@
   become: true
   vars:
     domain: "{{ lookup('env','DOMAIN') }}"
+    ip: "{{ lookup('env','IP') }}"
     aaki: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
     asak: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
   tasks: 
-    - name: add an a-record
+    - name: add an spf txt-record
       route53:
         aws_access_key: "{{ aaki }}"
         aws_secret_key: "{{ asak }}"
         state: present
         zone: "{{ domain }}"
-        record: "www.{{ domain }}"
-        type: A
-        value: "1.2.3.4"
-
-    - name: add an txt-record
-      route53:
-        aws_access_key: "{{ aaki }}"
-        aws_secret_key: "{{ asak }}"
-        state: present
-        zone: "{{ domain }}"
-        record: "default.{{ domain }}"
+        record: "{{ domain }}"
         type: TXT
-        value: '"simple"'
+        overwrite: true
+        value: '"v=spf1 ip4:{{ ip }} -all"'
+
+    - name: add a _dmarc txt-record
+      route53:
+        aws_access_key: "{{ aaki }}"
+        aws_secret_key: "{{ asak }}"
+        state: present
+        zone: "{{ domain }}"
+        record: "_dmarc.{{ domain }}"
+        type: TXT
+        overwrite: true
+        value: '"v=DMARC1; p=none; pct=100; rua=mailto:postmaster@{{ domain }}"'
+
+    - name: get dkim d1
+      shell:
+        cmd: '/home/ec2-user/.virtualenvs/provision-postfix-vmail-venv/bin/dotenv -f /home/ec2-user/provision-postfix-vmail-venv/.env get D1'
+      register: d1
+
+    - name: get dkim d2
+      shell:
+        cmd: '/home/ec2-user/.virtualenvs/provision-postfix-vmail-venv/bin/dotenv -f /home/ec2-user/provision-postfix-vmail-venv/.env get D2'
+      register: d2
+
+    - name: get dkim d3
+      shell:
+        cmd: '/home/ec2-user/.virtualenvs/provision-postfix-vmail-venv/bin/dotenv -f /home/ec2-user/provision-postfix-vmail-venv/.env get D3'
+      register: d3
+
+    - name: add a dkim txt-record
+      route53:
+        aws_access_key: "{{ aaki }}"
+        aws_secret_key: "{{ asak }}"
+        state: present
+        zone: "{{ domain }}"
+        record: "default._domainkey.{{ domain }}"
+        type: TXT
+        overwrite: true
+        value: '"{{ d1.stdout }}" "{{ d2.stdout }}" "{{ d3.stdout }}"'
