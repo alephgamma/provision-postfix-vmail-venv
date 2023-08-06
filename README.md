@@ -2,7 +2,7 @@
 
 This is an ansible environment to provision an email server with virtual mailboxes. Additional improvements add opendkim, spf and opendmarc features.
 
-## Pre-requisites
+## 0. Pre-requisites
 
 * ansible control-node
   - mkvirtualenv/postactivate contains environment variables:
@@ -19,11 +19,13 @@ This is an ansible environment to provision an email server with virtual mailbox
 * HTTPS Certificate is ready
 * External email user
 
-## The Big Picture
+## 1. The Big Picture
 For those of us that learn better by seeing, the image below is for visualization. 
 ![alt text](https://github.com/alephgamma/provision-postfix-vmail-venv/blob/master/postfix-vmail.png?raw=true)
 
-## The playbooks
+## 2. Create the virtual environment
+
+## 3. The playbooks
 
 ### provision_postfix_vmail.yml
 ```
@@ -46,7 +48,7 @@ For those of us that learn better by seeing, the image below is for visualizatio
   ...
 ```
 
-## The templates
+## 4. The templates
 
 ### postfix/main.cf.j2
 ### postfix/virtual.j2
