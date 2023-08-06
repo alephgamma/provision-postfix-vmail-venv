@@ -4,10 +4,9 @@ This is an ansible environment to provision an email server with virtual mailbox
 
 ## 0. Pre-requisites
 
-* ansible control-node
-  - mkvirtualenv/postactivate contains environment variables:
-    - DOMAIN
-    - IP
+* control-node
+  - Local user
+    - ec2-user with key-pair
 * target-node
   - Local user(s)
     - centos
@@ -24,6 +23,12 @@ For those of us that learn better by seeing, the image below is for visualizatio
 ![alt text](https://github.com/alephgamma/provision-postfix-vmail-venv/blob/master/postfix-vmail.png?raw=true)
 
 ## 2. Create the virtual environment
+
+* mkvirtualenv on the control-node
+  - mkvirtualenv
+  - postactivate contains environment variables:
+    - DOMAIN
+    - IP
 
 ## 3. The playbooks
 
