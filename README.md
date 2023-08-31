@@ -4,7 +4,7 @@ This is an ansible environment to provision an email server with virtual mailbox
 
 ## 0. Pre-requisites
 
-* control-node
+* control-node (osm-c9)
   - Local user
     - `ec2-user` with key-pair
 * target-node (email server)
