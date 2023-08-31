@@ -121,6 +121,7 @@
 
 #===============================================================================================================
 # If the date.txt file does not exist before running the playbook, the DNS record needs to be updated to match
+# In other words, do not run the task below if the opendkim DNS record already exists.
 #===============================================================================================================
 
     - name: create the opendkim keys
