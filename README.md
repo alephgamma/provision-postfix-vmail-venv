@@ -7,14 +7,14 @@ This is an ansible environment to provision an email server with virtual mailbox
 * control-node
   - Local user
     - `ec2-user` with key-pair
-* target-node
+* target-node (email server)
   - Local user(s)
     - `centos`
 * DNS domain
-  - Domain record: `{{ your-domain.com }}`
-  - Mail server record: `mail.{{ your-domain.com }}`
-  - MX record:  `10 mail.{{ your-domain.com }}`
-* PTR record
+  - Domain record: `{{ your-domain.com }}` - Probably already present
+  - Mail server record: `mail.{{ your-domain.com }}` - Probably already present
+  - MX record:  `10 mail.{{ your-domain.com }}` - Probably already present
+* PTR record - Provisioned by the VPS
 * HTTPS Certificate is ready
 * External email user
 
