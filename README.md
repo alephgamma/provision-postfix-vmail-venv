@@ -27,8 +27,8 @@ For those of us that learn better by seeing, the image below is for visualizatio
 * Make the virtualenv on the control-node
   - mkvirtualenv **YOUR-PROJECT**
 * Configure the environment
-  ```$HOME/.virtualenvs/provision-postfix-vmail-venv/bin/postactivate```
-    - postactivate exports the environment variables:
+  - Edit: ```$HOME/.virtualenvs/provision-postfix-vmail-venv/bin/postactivate```
+  - postactivate exports the environment variables:
     - DOMAIN
     - IP
     - VENV: The name of **YOUR-PROJECT**
