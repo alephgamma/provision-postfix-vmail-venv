@@ -101,7 +101,7 @@ with open(ef,'w') as file:
     file.write('D3='+t[2]+'\n')
 ```
 
-# Use-Cases
+# 5. Use-Cases
 
 ## Local submission: Receipt verification from local user to local user 
 
