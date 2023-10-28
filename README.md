@@ -101,14 +101,14 @@ with open(ef,'w') as file:
     file.write('D3='+t[2]+'\n')
 ```
 
-# 5. Use-Cases
+## 5. Use-Cases
 
-## Local submission: Receipt verification from local user to local user 
+### Local submission: Receipt verification from local user to local user 
 
-## Local submission: Transmission (sent) verification from local user to local user
+### Local submission: Transmission (sent) verification from local user to local user
 
-## Local submission to network user
+### Local submission to network user
 
-## Network submission: Receipt verification at the target-node
+### Network submission: Receipt verification at the target-node
 
-## Network submission: Transmission (sent) verification from the target-node
+### Network submission: Transmission (sent) verification from the target-node
